@@ -25,25 +25,25 @@ namespace Math_Contest_Grading_Software
         string SeniorKey;     //Senior Key String
         string JuniorTie;     //Junior Tie String
         string SeniorTie;     //Senior Tie String
-        bool JKFault = false;           //Junior Key Fault
-        bool SKFault = false;           //Senior Key Fault
-        bool JTFault = false;           //Junior Tie Fault
-        bool STFault = false;           //Senior Tie Fault
-        List<Student> Junior = new List<Student>();   //List for junior data
-        List<Student> Senior = new List<Student>();   //List for senior data
-        List<School> SchoolList = new List<School>();         //List for school data
+        bool JKFault;           //Junior Key Fault
+        bool SKFault;           //Senior Key Fault
+        bool JTFault;           //Junior Tie Fault
+        bool STFault;           //Senior Tie Fault
+        List<Student> Junior;   //List for junior data
+        List<Student> Senior;   //List for senior data
+        List<School> SchoolList;         //List for school data
 
-        List<int> SchNums = new List<int>();
-        List<string> SchNams = new List<string>();
+        List<int> SchNums;
+        List<string> SchNams;
 
-        List<string> JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
-        List<string> SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
+        List<string> JunErrorList;      //List of all Juniors and saying ok or error.
+        List<string> SenErrorList;      //List of all Seniors and saying ok or error.
 
         string SeniorFile;
         string JuniorFile;
         string SchoolListFile;
 
-        bool valid = false;
+        bool valid;
 
         List<string> instructorOutput;
         #endregion Variable_Defs
@@ -58,6 +58,25 @@ namespace Math_Contest_Grading_Software
 
         private void validateGrade_Click(object sender, EventArgs e)
         {
+            #region Zero Vars
+
+            JKFault = false;           //Junior Key Fault
+            SKFault = false;           //Senior Key Fault
+            JTFault = false;           //Junior Tie Fault
+            STFault = false;           //Senior Tie Fault
+            Junior = new List<Student>();   //List for junior data
+            Senior = new List<Student>();   //List for senior data
+            SchoolList = new List<School>();         //List for school data
+
+            SchNums = new List<int>();
+            SchNams = new List<string>();
+
+            JunErrorList = new List<string>();      //List of all Juniors and saying ok or error.
+            SenErrorList = new List<string>();      //List of all Seniors and saying ok or error.
+
+            valid = false;
+
+            #endregion Zero Vars
 
             string AppPath;
             theMonth = month.Text;
@@ -92,6 +111,8 @@ namespace Math_Contest_Grading_Software
                     AppPath = fbd.SelectedPath;
                     AppPath += "\\";
 
+                    writeToFile(ComboValidationString(), "VALIDATION_FILE", AppPath);
+
                     //writeToFile(List<string> lines, string fileName, string path)
                     //File.WriteAllLines(AppPath + "INSTRUCTOR_INFORMATION" + ".txt", instructorOutput);
                     writeToFile(instructorOutput, "INSTRUCTOR_INFORMATION", AppPath);
@@ -125,7 +146,7 @@ namespace Math_Contest_Grading_Software
 
                     //writeToFile(List<string> lines, string fileName, string path)
                     //File.WriteAllLines(AppPath + "INSTRUCTOR_INFORMATION" + ".txt", instructorOutput);
-                    writeToFile(ComboValidationString(), "ValidationFile", AppPath);
+                    writeToFile(ComboValidationString(), "VALIDATION_FILE", AppPath);
                     
                     MessageBox.Show("Validation File Produced\nPlease Correct Errors And Try Again.");
                 }
